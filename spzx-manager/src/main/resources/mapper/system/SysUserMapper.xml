@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.atguigu.spzx.manager.mapper.SysUserMapper">
+<mapper namespace="com.atguigu.spzx.mapper.SysUserMapper">
 
     <select id="selectByUserName" resultType="com.atguigu.spzx.model.entity.system.SysUser">
         select * from sys_user where username=#{userName} and is_deleted=0

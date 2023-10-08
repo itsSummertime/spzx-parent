@@ -1,4 +1,4 @@
-package com.atguigu.spzx.manager.service;
+package com.atguigu.spzx.service;
 
 
 import com.atguigu.spzx.model.dto.system.LoginDto;

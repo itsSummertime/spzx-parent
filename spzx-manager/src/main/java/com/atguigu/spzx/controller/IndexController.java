@@ -1,6 +1,6 @@
-package com.atguigu.spzx.manager.controller;
+package com.atguigu.spzx.controller;
 
-import com.atguigu.spzx.manager.service.SysUserService;
+import com.atguigu.spzx.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.model.vo.system.LoginVo;

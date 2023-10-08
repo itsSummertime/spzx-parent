@@ -1,4 +1,4 @@
-package com.atguigu.spzx.manager.mapper;
+package com.atguigu.spzx.mapper;
 
 import com.atguigu.spzx.model.entity.system.SysUser;
 import org.apache.ibatis.annotations.Mapper;

@@ -1,9 +1,8 @@
-package com.atguigu.spzx.manager.service.impl;
+package com.atguigu.spzx.service.impl;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
-import com.atguigu.spzx.manager.mapper.SysUserMapper;
-import com.atguigu.spzx.manager.service.SysUserService;
+import com.atguigu.spzx.mapper.SysUserMapper;
+import com.atguigu.spzx.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
 import com.atguigu.spzx.model.vo.system.LoginVo;
