@@ -1,5 +1,6 @@
 package com.atguigu.spzx.controller;
 
+import com.atguigu.spzx.model.entity.system.SysUser;
 import com.atguigu.spzx.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.vo.common.Result;
@@ -22,6 +23,12 @@ public class IndexController {
     public Result<LoginDto> login(@RequestBody LoginDto loginDto){
         LoginVo loginVo = sysUserService.login(loginDto) ;
         return Result.ok(loginDto);
+    }
+    @Operation(summary = "获取用户信息")
+    @GetMapping("/getUserInfo")
+    public Result<SysUser> getUserInfo(@RequestHeader String token){
+        SysUser sysUser = sysUserService.getUserInfo(token);
+        return Result.ok(sysUser);
     }
 
 

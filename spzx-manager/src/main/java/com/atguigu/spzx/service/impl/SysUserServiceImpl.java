@@ -41,7 +41,7 @@ public class SysUserServiceImpl implements SysUserService {
         //使用UUID生成全局唯一的token令牌
         String token = IdUtil.simpleUUID();
         //将token令牌保存在redis
-        String key = "user:login"+token;
+        String key = "user:login:"+token;
         String value =JSON.toJSONString(sysUser);
         redisTemplate.opsForValue().set(key, value,30, TimeUnit.MINUTES);
         //响应给前端参数
@@ -49,5 +49,13 @@ public class SysUserServiceImpl implements SysUserService {
         loginVo.setToken(token);
         loginVo.setRefresh_token("");
         return loginVo;
+    }
+
+    @Override
+    public SysUser getUserInfo(String token) {
+        //根据token令牌获取对应用户信息
+        String string = redisTemplate.opsForValue().get("user:login:"+token);
+        //将JSON字符串转换为SysUser对象
+        return JSON.parseObject(string,SysUser.class);
     }
 }
