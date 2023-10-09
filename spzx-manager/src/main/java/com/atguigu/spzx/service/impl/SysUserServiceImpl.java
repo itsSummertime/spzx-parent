@@ -2,6 +2,7 @@ package com.atguigu.spzx.service.impl;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.spzx.common.exception.GuiguException;
 import com.atguigu.spzx.mapper.SysUserMapper;
@@ -27,6 +28,17 @@ public class SysUserServiceImpl implements SysUserService {
     private RedisTemplate<String,String> redisTemplate;
     @Override
     public LoginVo login(LoginDto loginDto) {
+        //获取前端页面填写的验证码 和 验证码对应的key
+        String captcha = loginDto.getCaptcha();
+        String codeKey = loginDto.getCodeKey();
+        //使用codeKey到Redis中获取对应的验证码
+        String captchaRedis = redisTemplate.opsForValue().get("user:login:captcha:" + codeKey);
+        //比较填写的验证码 和 Redis中的验证码
+        if(StrUtil.isEmpty(captcha) || !captcha.equalsIgnoreCase(captchaRedis)){
+            throw new GuiguException(ResultCodeEnum.CAPTCHA_ERROR);
+        }
+        //验证码输入正确后删除
+        redisTemplate.delete("user:login:captcha:" + codeKey);
         //获取参数
         String userName = loginDto.getUserName();
         String password = loginDto.getPassword();
