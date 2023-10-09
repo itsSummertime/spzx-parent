@@ -20,10 +20,11 @@ public class IndexController {
    private SysUserService sysUserService;
     @PostMapping ("/login")
     @Operation(summary = "登录")
-    public Result<LoginDto> login(@RequestBody LoginDto loginDto){
+    public Result<LoginVo> login(@RequestBody LoginDto loginDto){
         LoginVo loginVo = sysUserService.login(loginDto) ;
-        return Result.ok(loginDto);
+        return Result.ok(loginVo);
     }
+
     @Operation(summary = "获取用户信息")
     @GetMapping("/getUserInfo")
     public Result<SysUser> getUserInfo(@RequestHeader String token){
