@@ -1,9 +1,12 @@
 package com.atguigu.spzx.service.impl;
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.spzx.common.exception.GuiguException;
 import com.atguigu.spzx.mapper.SysUserMapper;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
 import com.atguigu.spzx.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
@@ -58,4 +61,31 @@ public class SysUserServiceImpl implements SysUserService {
         //将JSON字符串转换为SysUser对象
         return JSON.parseObject(string,SysUser.class);
     }
+
+    @Override
+    public void logout(String token) {
+        redisTemplate.delete("user:login:"+token);
+    }
+
+    @Override
+    public ValidateCodeVo getCaptcha() {
+        //生成图片验证码  参数：宽、高、验证码位数、干扰线数量
+        CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(150, 50, 4, 20);
+        //获取验证码内容 1cq2
+        String code = circleCaptcha.getCode();
+        //获取图片base64
+        String imageBase64 = circleCaptcha.getImageBase64();
+
+        //验证码对应的key
+        String codeKey = IdUtil.simpleUUID();
+        //保存到Redis中，有效期2分钟
+        redisTemplate.opsForValue().set("user:login:captcha:" + codeKey, code, 2, TimeUnit.MINUTES);
+
+        //响应给前端的数据
+        ValidateCodeVo validateCodeVo = new ValidateCodeVo();
+        validateCodeVo.setCodeKey(codeKey); //验证码对应的key
+        validateCodeVo.setCodeValue(imageBase64); //验证码的图片
+        return validateCodeVo;
+    }
+
 }

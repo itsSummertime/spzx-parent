@@ -1,12 +1,14 @@
 package com.atguigu.spzx.controller;
 
 import com.atguigu.spzx.model.entity.system.SysUser;
+import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
 import com.atguigu.spzx.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.model.vo.system.LoginVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,17 @@ public class IndexController {
         SysUser sysUser = sysUserService.getUserInfo(token);
         return Result.ok(sysUser);
     }
-
+    @Operation(summary = "退出")
+    @GetMapping("/logout")
+    public Result<T> logout(@RequestHeader String token) {
+        sysUserService.logout(token);
+        return Result.ok();
+    }
+    @Operation(summary = "生成图片验证码")
+    @GetMapping("/getCaptcha")
+    public Result<ValidateCodeVo> getCaptcha() {
+        ValidateCodeVo validateCodeVo = sysUserService.getCaptcha();
+        return Result.ok(validateCodeVo);
+    }
 
 }
