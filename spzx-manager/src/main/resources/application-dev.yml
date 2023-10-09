@@ -21,3 +21,14 @@ spring:
 mybatis:
   config-location: classpath:/mybatis-config.xml
   mapper-locations: classpath:/mapper/*/*.xml
+
+#自定义配置
+spzx:
+  auth:
+    noAuthUrls: #不需要拦截的路径
+      - /admin/system/index/login
+      - /admin/system/index/getCaptcha
+      - /doc.html
+      - /v3/api-docs/swagger-config
+      - /v3/api-docs/admin-api
+      - /error

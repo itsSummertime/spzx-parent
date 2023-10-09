@@ -1,5 +1,6 @@
 package com.atguigu.spzx.controller;
 
+import com.atguigu.spzx.common.AuthContextUtil;
 import com.atguigu.spzx.model.entity.system.SysUser;
 import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
 import com.atguigu.spzx.service.SysUserService;
@@ -30,7 +31,8 @@ public class IndexController {
     @Operation(summary = "获取用户信息")
     @GetMapping("/getUserInfo")
     public Result<SysUser> getUserInfo(@RequestHeader String token){
-        SysUser sysUser = sysUserService.getUserInfo(token);
+        //从线程变量中获取SysUser对象
+        SysUser sysUser = AuthContextUtil.get();
         return Result.ok(sysUser);
     }
     @Operation(summary = "退出")
