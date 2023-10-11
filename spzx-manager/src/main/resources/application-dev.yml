@@ -16,6 +16,8 @@ spring:
       host: localhost
       port: 6379
 #  password: 1234
+  jackson: #json时间的时区-响应给前端的数据
+    time-zone: Asia/Shanghai
 
 # mybatis的配置
 mybatis:
