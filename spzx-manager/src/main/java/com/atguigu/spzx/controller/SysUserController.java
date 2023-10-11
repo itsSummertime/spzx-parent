@@ -41,5 +41,18 @@ public class SysUserController {
         return Result.ok();
     }
 
+    @Operation(summary = "修改")
+    @PostMapping("/update")
+    public Result<T> update(@RequestBody SysUser sysUser){
+        sysUserService.update(sysUser);
+        return Result.ok();
+    }
+
+    @Operation(summary = "删除")
+    @PostMapping("/delete{userId}")
+    public Result<T> deleteById(@PathVariable(value = "userId") Long userId){
+        sysUserService.deleteById(userId);
+        return Result.ok();
+    }
 
 }

@@ -124,8 +124,19 @@ public class SysUserServiceImpl implements SysUserService {
         //对密码进行加密
         String password = sysUser.getPassword();
         String passwordDigest = DigestUtils.md5DigestAsHex(password.getBytes());
-        SysUserMapper.insert(sysUser);
-
+        sysUser.setPassword(passwordDigest);
+        sysUserMapper.insert(sysUser);
     }
+
+    @Override
+    public void update(SysUser sysUser) {
+        sysUserMapper.update(sysUser);
+    }
+
+    @Override
+    public void deleteById(Long userId) {
+        sysUserMapper.deleteById(userId);
+    }
+
 
 }
