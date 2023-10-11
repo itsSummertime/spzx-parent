@@ -44,6 +44,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         //续期，将token令牌的有限期重置为30分钟
         redisTemplate.expire("user:login:" + token, 30, TimeUnit.MINUTES);
+        //redisTemplate.expire("user:login:" + token, 30, TimeUnit.MINUTES);
+
+        //临时代码-将token令牌持久化
+        redisTemplate.persist("user:login:" + token);
 
         //放行，将请求交给Controller
         return true;
