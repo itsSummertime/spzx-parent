@@ -8,7 +8,12 @@ import java.util.List;
 
 @Mapper
 public interface SysUserMapper {
+    static void insert(SysUser sysUser) {
+    }
+
     SysUser selectByUserName(String userName);
 
     List<SysUser> selectByPage(SysUserDto sysUserDto);
+
+    SysUser findByUsername(String userName);
 }

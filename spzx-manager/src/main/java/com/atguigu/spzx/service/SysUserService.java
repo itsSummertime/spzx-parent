@@ -18,4 +18,6 @@ public interface SysUserService {
     ValidateCodeVo getCaptcha();
 
     PageInfo<SysUser> findByPage(int pageNum, int pageSize, SysUserDto sysUserDto);
+
+    void add(SysUser sysUser);
 }

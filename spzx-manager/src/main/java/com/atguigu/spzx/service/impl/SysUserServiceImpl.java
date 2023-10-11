@@ -114,4 +114,18 @@ public class SysUserServiceImpl implements SysUserService {
         return new PageInfo<>(list);
     }
 
+    @Override
+    public void add(SysUser sysUser) {
+        //根据输入的用户查询用户名
+        SysUser dbSysUser = sysUserMapper.findByUsername(sysUser.getUserName());
+        if (dbSysUser != null) {
+            throw new GuiguException(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+        //对密码进行加密
+        String password = sysUser.getPassword();
+        String passwordDigest = DigestUtils.md5DigestAsHex(password.getBytes());
+        SysUserMapper.insert(sysUser);
+
+    }
+
 }

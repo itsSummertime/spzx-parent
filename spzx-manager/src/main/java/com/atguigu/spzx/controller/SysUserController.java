@@ -7,6 +7,7 @@ import com.atguigu.spzx.service.SysUserService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,4 +34,12 @@ public class SysUserController {
         PageInfo<SysUser> pageInfo = sysUserService.findByPage(pageNum, pageSize, sysUserDto);
         return Result.ok(pageInfo);
     }
+    @Operation(summary = "添加")
+    @PostMapping("/add")
+    public Result<T> add(@RequestBody SysUser sysUser){
+        sysUserService.add(sysUser);
+        return Result.ok();
+    }
+
+
 }

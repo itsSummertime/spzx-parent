@@ -3,6 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.spzx.mapper.SysUserMapper">
+    <!--根据用户名查找用户-->
+    <select id="findByUsername" resultType="com.atguigu.spzx.model.entity.system.SysUser">
+        select * from sys_user where username = #{userName}
+    </select>
+    <!--  添加用户  -->
+    <insert id="insert">
+        insert into sys_user(
+        username,
+        password,
+        name,
+        phone,
+        avatar,
+        description)values(
+        #{userName},
+        #{password},
+        #{name},
+        #{phone},
+        #{avatar},
+        #{description});
+    </insert>
 
     <select id="selectByUserName" resultType="com.atguigu.spzx.model.entity.system.SysUser">
         select * from sys_user where username=#{userName} and is_deleted=0
