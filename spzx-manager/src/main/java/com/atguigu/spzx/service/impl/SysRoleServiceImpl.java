@@ -22,8 +22,11 @@ import java.util.List;
  */
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
-    @Autowired
-    private SysRoleMapper sysRoleMapper;
+    private final SysRoleMapper sysRoleMapper;
+
+    public SysRoleServiceImpl(SysRoleMapper sysRoleMapper) {
+        this.sysRoleMapper = sysRoleMapper;
+    }
 
     @Override
     public PageInfo<SysRole> findByPage(int pageNum, int pageSize, SysRoleDto sysRoleDto) {
@@ -32,5 +35,20 @@ public class SysRoleServiceImpl implements SysRoleService {
         //执行查询
         List<SysRole> list = sysRoleMapper.selectByPage(sysRoleDto);
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public void add(SysRole sysRole) {
+        sysRoleMapper.insert(sysRole);
+    }
+
+    @Override
+    public void update(SysRole sysRole) {
+        sysRoleMapper.update(sysRole);
+    }
+
+    @Override
+    public void delete(long id) {
+        sysRoleMapper.deleteById(id);
     }
 }

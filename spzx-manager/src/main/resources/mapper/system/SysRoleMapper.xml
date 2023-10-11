@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.spzx.mapper.SysRoleMapper">
+    <!--添加角色-->
+    <insert id="insert">
+        INSERT INTO sys_role(role_name,role_code,description)
+        VALUES(#{roleName},#{roleCode},#{description})
+    </insert>
 
+    <!--修改角色-->
+    <update id="update">
+        UPDATE sys_role SET role_name=#{roleName}, role_code=#{roleCode}, description=#{description}
+        WHERE id=#{id}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="deleteById">
+        UPDATE sys_role SET is_deleted=1 WHERE id=#{id}
+    </update>
+
+    <!--分页查询角色列表-->
     <select id="selectByPage" resultType="com.atguigu.spzx.model.entity.system.SysRole">
         SELECT * FROM sys_role
         <where>

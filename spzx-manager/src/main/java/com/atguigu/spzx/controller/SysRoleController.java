@@ -8,6 +8,7 @@ import com.atguigu.spzx.service.SysRoleService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,5 +34,26 @@ public class SysRoleController {
                                                 @RequestBody SysRoleDto sysRoleDto) {
         PageInfo<SysRole> pageInfo = sysRoleService.findByPage(pageNum, pageSize, sysRoleDto);
         return Result.ok(pageInfo);
+    }
+
+    @Operation(summary = "添加")
+    @PostMapping("/add")
+    public Result<T> add(@RequestBody SysRole sysRole) {
+        sysRoleService.add(sysRole);
+        return Result.ok();
+    }
+
+    @Operation(summary = "修改")
+    @PutMapping("/update")
+    public Result<T> update(@RequestBody SysRole sysRole) {
+        sysRoleService.update(sysRole);
+        return Result.ok();
+    }
+
+    @Operation(summary = "逻辑删除")
+    @DeleteMapping("/delete/{id}")
+    public Result<T> delete(@PathVariable long id) {
+        sysRoleService.delete(id);
+        return Result.ok();
     }
 }
