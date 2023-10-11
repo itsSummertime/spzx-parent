@@ -6,17 +6,21 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.spzx.common.exception.GuiguException;
 import com.atguigu.spzx.mapper.SysUserMapper;
+import com.atguigu.spzx.model.dto.system.SysUserDto;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
 import com.atguigu.spzx.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
 import com.atguigu.spzx.model.vo.system.LoginVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -98,6 +102,16 @@ public class SysUserServiceImpl implements SysUserService {
         validateCodeVo.setCodeKey(codeKey); //验证码对应的key
         validateCodeVo.setCodeValue(imageBase64); //验证码的图片
         return validateCodeVo;
+    }
+
+    @Override
+    public PageInfo<SysUser> findByPage(int pageNum, int pageSize, SysUserDto sysUserDto) {
+        //执行查询前，开启分页
+        PageHelper.startPage(pageNum, pageSize);
+        //执行查询
+        List<SysUser> list = sysUserMapper.selectByPage(sysUserDto);
+        //将查询结果封装到PageInfo分页对象中
+        return new PageInfo<>(list);
     }
 
 }
