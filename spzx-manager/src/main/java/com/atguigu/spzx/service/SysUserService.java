@@ -23,5 +23,5 @@ public interface SysUserService {
 
     void update(SysUser sysUser);
 
-    void deleteById(Long userId);
+    void deleteById(Long id);
 }

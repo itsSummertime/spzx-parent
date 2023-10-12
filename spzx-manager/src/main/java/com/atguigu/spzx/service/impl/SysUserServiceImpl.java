@@ -134,8 +134,8 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public void deleteById(Long userId) {
-        sysUserMapper.deleteById(userId);
+    public void deleteById(Long id) {
+        sysUserMapper.deleteById(id);
     }
 
 

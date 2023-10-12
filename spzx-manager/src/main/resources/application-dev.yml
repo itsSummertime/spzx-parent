@@ -18,6 +18,10 @@ spring:
 #  password: 1234
   jackson: #json时间的时区-响应给前端的数据
     time-zone: Asia/Shanghai
+    servlet:
+      multipart:
+        max-file-size: 100MB #单个文件的最大值，默认1MB
+        max-request-size: 1000MB #一个请求中所有文件的总大小，默认10MB
 
 # mybatis的配置
 mybatis:
@@ -34,3 +38,11 @@ spzx:
       - /v3/api-docs/swagger-config
       - /v3/api-docs/admin-api
       - /error
+      - /webjars/**
+      - /favicon.ico
+
+  minio: #minio服务端
+    endpoint: http://localhost:9000
+    accessKey: admin
+    secretKey: 12345678
+    bucket: spzx-bucket

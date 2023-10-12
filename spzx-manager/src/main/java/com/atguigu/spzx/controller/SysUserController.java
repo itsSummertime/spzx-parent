@@ -42,16 +42,16 @@ public class SysUserController {
     }
 
     @Operation(summary = "修改")
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Result<T> update(@RequestBody SysUser sysUser){
         sysUserService.update(sysUser);
         return Result.ok();
     }
 
     @Operation(summary = "删除")
-    @PostMapping("/delete{userId}")
-    public Result<T> deleteById(@PathVariable(value = "userId") Long userId){
-        sysUserService.deleteById(userId);
+    @DeleteMapping("/delete/{id}")
+    public Result<T> deleteById(@PathVariable Long id){
+        sysUserService.deleteById(id);
         return Result.ok();
     }
 

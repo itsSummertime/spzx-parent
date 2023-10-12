@@ -11,9 +11,9 @@
             description=#{description}
         where id = #{id}
     </update>
-    <delete id="deleteById">
+    <update id="deleteById">
         update sys_user set is_deleted = 1 where id = #{id}
-    </delete>
+    </update>
     <!--根据用户名查找用户-->
     <select id="findByUsername" resultType="com.atguigu.spzx.model.entity.system.SysUser">
         select * from sys_user where username = #{userName}
