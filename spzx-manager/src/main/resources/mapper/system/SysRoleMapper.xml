@@ -29,4 +29,8 @@
         </where>
         ORDER BY id DESC
     </select>
+    <!--查询所有角色-->
+    <select id="selectAll" resultType="com.atguigu.spzx.model.entity.system.SysRole">
+        SELECT * FROM sys_role WHERE is_deleted=0
+    </select>
 </mapper>

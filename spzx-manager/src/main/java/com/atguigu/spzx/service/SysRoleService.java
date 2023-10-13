@@ -1,9 +1,10 @@
 package com.atguigu.spzx.service;
 
-
 import com.atguigu.spzx.model.dto.system.SysRoleDto;
 import com.atguigu.spzx.model.entity.system.SysRole;
 import com.github.pagehelper.PageInfo;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,7 +14,7 @@ import com.github.pagehelper.PageInfo;
  * @author atguigu
  * @since 2023-10-10
  */
-public interface SysRoleService  {
+public interface SysRoleService {
 
     PageInfo<SysRole> findByPage(int pageNum, int pageSize, SysRoleDto sysRoleDto);
 
@@ -22,4 +23,6 @@ public interface SysRoleService  {
     void update(SysRole sysRole);
 
     void delete(long id);
+
+    Map<String, Object> findAssignRoleList(long userId);
 }
