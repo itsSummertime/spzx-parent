@@ -16,4 +16,10 @@ import java.util.List;
 public interface SysMenuService {
 
     List<SysMenu> findTreeList();
+
+    void add(SysMenu sysMenu);
+
+    void update(SysMenu sysMenu);
+
+    void delete(long id);
 }

@@ -17,4 +17,12 @@ import java.util.List;
 public interface SysMenuMapper{
 
     List<SysMenu> selectAll();
+
+    void insert(SysMenu sysMenu);
+
+    void update(SysMenu sysMenu);
+
+    int countByParentId(long id);
+
+    void deleteById(long id);
 }

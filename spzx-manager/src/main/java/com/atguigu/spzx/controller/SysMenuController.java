@@ -6,10 +6,9 @@ import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.service.SysMenuService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +32,28 @@ public class SysMenuController {
     public Result<List<SysMenu>> findTreeList(){
         List<SysMenu> list = sysMenuService.findTreeList();
         return Result.ok(list);
+    }
+
+    @Operation(summary = "添加")
+    @PostMapping("/add")
+    public Result<T> add(@RequestBody SysMenu sysMenu){
+        sysMenuService.add(sysMenu);
+        return Result.ok();
+    }
+
+    @Operation(summary = "修改")
+    @PutMapping("/update")
+    public Result<T> update(@RequestBody SysMenu sysMenu){
+        sysMenuService.update(sysMenu);
+        return Result.ok();
+    }
+
+    @Operation(summary = "逻辑删除")
+    @DeleteMapping("/delete/{id}")
+    public Result<T> delete(@PathVariable long id) {
+        sysMenuService.delete(id);
+        return Result.ok();
+
     }
 }
 
