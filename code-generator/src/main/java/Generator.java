@@ -20,11 +20,11 @@ public class Generator {
                 .packageConfig(builder -> {
                     builder.parent("com.atguigu.spzx") // 设置父包名
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml,
-                                    "D:\\javacode\\spzx-parent\\spzx-manager\\src\\main\\resources\\mapper\\system")); // 设置mapperXml生成路径
+                                    "D:\\javacode\\spzx-parent\\spzx-manager\\src\\main\\resources\\mapper\\product")); // 设置mapperXml生成路径
                 })
                 //策略配置(StrategyConfig)
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_role_menu"); // 设置表名,会根据该表生成代码
+                    builder.addInclude("category"); // 设置表名,会根据该表生成代码
                     builder.entityBuilder()
                             .enableLombok() //开启 lombok 模型
                             .enableTableFieldAnnotation(); //生成字段注解
