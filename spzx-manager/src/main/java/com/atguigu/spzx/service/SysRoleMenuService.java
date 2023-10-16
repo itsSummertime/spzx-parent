@@ -1,6 +1,8 @@
 package com.atguigu.spzx.service;
 
 
+import com.atguigu.spzx.model.dto.system.AssignMenuDto;
+
 /**
  * <p>
  * 角色菜单 服务类
@@ -11,4 +13,5 @@ package com.atguigu.spzx.service;
  */
 public interface SysRoleMenuService {
 
+    void assignMenu(AssignMenuDto assignMenuDto);
 }
