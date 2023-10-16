@@ -25,4 +25,6 @@ public interface SysMenuService {
     void delete(long id);
 
     Map<String, Object> findAssignMenuList(long roleId);
+
+    List<SysMenu> findAccessMenuList();
 }

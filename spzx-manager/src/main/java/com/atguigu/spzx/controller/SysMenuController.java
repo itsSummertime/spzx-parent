@@ -62,5 +62,12 @@ public class SysMenuController {
         Map<String,Object> map = sysMenuService.findAssignMenuList(roleId);
         return Result.ok(map);
     }
+
+    @Operation(summary = "查询可访问的菜单")
+    @GetMapping("/findAccessMenuList")
+    public Result<List<SysMenu>> findAccessMenuList() {
+        List<SysMenu> list = sysMenuService.findAccessMenuList();
+        return Result.ok(list);
+    }
 }
 

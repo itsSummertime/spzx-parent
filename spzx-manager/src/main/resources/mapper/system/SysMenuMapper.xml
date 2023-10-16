@@ -23,4 +23,13 @@
     <select id="countByParentId" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM sys_menu WHERE parent_id=#{id} AND is_deleted=0
     </select>
+    <!--根据用户id查询可访问的菜单列表-->
+    <select id="selectByUserId" resultType="com.atguigu.spzx.model.entity.system.SysMenu">
+        SELECT DISTINCT m.*
+        FROM sys_menu m
+                 LEFT JOIN sys_role_menu rm ON m.id = rm.menu_id
+                 LEFT JOIN sys_user_role ur ON ur.role_id = rm.role_id
+        WHERE ur.user_id = #{userId} AND m.is_deleted = 0
+        ORDER BY m.sort_value
+    </select>
 </mapper>

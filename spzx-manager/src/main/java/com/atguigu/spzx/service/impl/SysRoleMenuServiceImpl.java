@@ -7,6 +7,10 @@ import com.atguigu.spzx.service.SysRoleMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
+
+
 /**
  * <p>
  * 角色菜单 服务实现类
@@ -28,4 +32,11 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
         //2.添加新分配的菜单
         sysRoleMenuMapper.insertBatch(assignMenuDto);
     }
+
+
+
+
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.atguigu.spzx.service.impl;
 
+import com.atguigu.spzx.common.AuthContextUtil;
 import com.atguigu.spzx.common.exception.GuiguException;
 import com.atguigu.spzx.mapper.SysMenuMapper;
 import com.atguigu.spzx.mapper.SysRoleMenuMapper;
@@ -74,5 +75,16 @@ public class SysMenuServiceImpl implements SysMenuService {
         map.put("treeList", treeList);
         map.put("menuIdList", menuIdList);
         return map;
+    }
+
+    @Override
+    public List<SysMenu> findAccessMenuList() {
+        //从线程变量中获取用户id
+        Long userId = AuthContextUtil.get().getId();
+
+        //根据用户id查询可访问的菜单列表
+        List<SysMenu> menuList = sysMenuMapper.selectByUserId(userId);
+        //转为树节点的结构
+        return MenuUtil.toTreeList(menuList);
     }
 }
