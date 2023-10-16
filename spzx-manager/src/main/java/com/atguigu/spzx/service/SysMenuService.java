@@ -4,6 +4,7 @@ package com.atguigu.spzx.service;
 import com.atguigu.spzx.model.entity.system.SysMenu;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -22,4 +23,6 @@ public interface SysMenuService {
     void update(SysMenu sysMenu);
 
     void delete(long id);
+
+    Map<String, Object> findAssignMenuList(long roleId);
 }

@@ -24,7 +24,7 @@ public class Generator {
                 })
                 //策略配置(StrategyConfig)
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_menu"); // 设置表名,会根据该表生成代码
+                    builder.addInclude("sys_role_menu"); // 设置表名,会根据该表生成代码
                     builder.entityBuilder()
                             .enableLombok() //开启 lombok 模型
                             .enableTableFieldAnnotation(); //生成字段注解

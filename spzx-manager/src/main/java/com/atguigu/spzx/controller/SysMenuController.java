@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -53,7 +54,13 @@ public class SysMenuController {
     public Result<T> delete(@PathVariable long id) {
         sysMenuService.delete(id);
         return Result.ok();
-
+    }
+    @Operation(summary = "查询分配菜单列表")
+    @GetMapping("/findAssignMenuList/{roleId}")
+    public Result<Map<String,Object>> findAssignMenuList(@PathVariable long roleId){
+        //包含菜单树节点列表、指定角色已分配且已选中的菜单id列表
+        Map<String,Object> map = sysMenuService.findAssignMenuList(roleId);
+        return Result.ok(map);
     }
 }
 
