@@ -19,4 +19,6 @@ public interface CategoryMapper{
     int countByParentId(Long id);
 
     List<Category> selectByParentId(long parentId);
+
+    List<Category> selectAll();
 }

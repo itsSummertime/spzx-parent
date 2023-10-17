@@ -4,11 +4,16 @@
 
     <!--根据parent_id查询分类列表-->
     <select id="selectByParentId" resultType="com.atguigu.spzx.model.entity.product.Category">
-        SELECT * FROM category WHERE parent_id = #{parentId}
+        SELECT * FROM category WHERE parent_id = #{parentId} AND is_deleted=0
     </select>
 
     <!--根据parent_id查询分类数量-->
     <select id="countByParentId" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM category WHERE parent_id = #{parentId}
+        SELECT COUNT(*) FROM category WHERE parent_id = #{parentId} AND is_deleted=0
+    </select>
+
+    <!--查询所有分类-->
+    <select id="selectAll" resultType="com.atguigu.spzx.model.entity.product.Category">
+        SELECT * FROM category WHERE is_deleted=0
     </select>
 </mapper>
