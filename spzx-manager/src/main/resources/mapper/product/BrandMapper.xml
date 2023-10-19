@@ -20,5 +20,12 @@
     <select id="selectAll" resultType="com.atguigu.spzx.model.entity.product.Brand">
         SELECT * FROM brand WHERE is_deleted=0 ORDER BY id DESC
     </select>
+    <!--根据分类id查询品牌列表-->
+    <select id="selectByCategoryId" resultType="com.atguigu.spzx.model.entity.product.Brand">
+        SELECT b.*
+        FROM brand b
+                 LEFT JOIN category_brand cb ON b.id = cb.brand_id
+        WHERE cb.category_id = #{categoryId} AND b.is_deleted=0 AND cb.is_deleted=0
+    </select>
 </mapper>
 

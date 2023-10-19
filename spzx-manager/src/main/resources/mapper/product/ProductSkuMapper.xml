@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.spzx.mapper.ProductSkuMapper">
+
+
+    <!--批量添加商品sku-->
+    <insert id="insertBatch">
+        INSERT INTO product_sku(sku_code,sku_name,product_id,thumb_img,sale_price,
+        market_price,cost_price,stock_num,sku_spec,weight,
+        volume) VALUES
+        <foreach collection="list" item="sku" separator=",">
+            (#{sku.skuCode},#{sku.skuName},#{sku.productId},#{sku.thumbImg},#{sku.salePrice}
+            ,#{sku.marketPrice},#{sku.costPrice},#{sku.stockNum},#{sku.skuSpec}
+            ,#{sku.weight},#{sku.volume})
+        </foreach>
+    </insert>
+    <!--修改sku数据-->
+    <update id="update">
+        UPDATE product_sku SET thumb_img=#{thumbImg},sale_price=#{salePrice},
+                               market_price=#{marketPrice},cost_price=#{costPrice},
+                               stock_num=#{stockNum},weight=#{weight},
+                               volume=#{volume}
+        WHERE id=#{id}
+    </update>
+
+    <!--逻辑删除-根据product_id删除sku数据-->
+    <update id="deleteByProductId">
+        UPDATE product_sku SET is_deleted=1 WHERE product_id=#{productId}
+    </update>
+    <!--根据商品id查询sku数据-->
+    <select id="selectByProductId" resultType="com.atguigu.spzx.model.entity.product.ProductSku">
+        SELECT * FROM product_sku WHERE product_id=#{productId} AND is_deleted=0
+    </select>
+</mapper>

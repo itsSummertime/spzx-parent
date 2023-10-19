@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.spzx.mapper.ProductDetailsMapper">
+    <!--添加详情图片-->
+    <insert id="insert">
+        INSERT INTO product_details(product_id,image_urls)
+        VALUES(#{productId},#{imageUrls})
+    </insert>
+
+    <!--修改详情图片-->
+    <update id="update">
+        UPDATE product_details SET image_urls=#{imageUrls}
+        WHERE product_id=#{productId}
+    </update>
+
+    <!--逻辑删除-根据product_id删除详情图片-->
+    <update id="deleteByProductId">
+        UPDATE product_details SET is_deleted=1 WHERE product_id=#{productId}
+    </update>
+
+    <!--根据商品id查询详情图片-->
+    <select id="selectByProductId" resultType="com.atguigu.spzx.model.entity.product.ProductDetails">
+        SELECT * FROM product_details WHERE product_id=#{productId} AND is_deleted=0
+    </select>
+</mapper>
+

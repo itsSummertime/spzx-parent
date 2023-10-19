@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.spzx.mapper.OrderStatisticsMapper">
+
+    <!--添加订单统计数据-->
+    <insert id="insert">
+        INSERT INTO order_statistics(order_date,total_amount,total_num)
+        VALUES(#{orderDate}, #{totalAmount}, #{totalNum})
+    </insert>
+    <!--根据订单时间查询订单统计数据-->
+    <select id="selectOrderTotalAmount" resultType="com.atguigu.spzx.model.entity.order.OrderStatistics">
+        SELECT * FROM order_statistics
+        <where>
+            <if test="createTimeBegin!=null and createTimeBegin!=''">
+                order_date >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd!=null and createTimeEnd!=''">
+                AND order_date &lt;= #{createTimeEnd}
+            </if>
+            AND is_deleted=0
+        </where>
+    </select>
+</mapper>

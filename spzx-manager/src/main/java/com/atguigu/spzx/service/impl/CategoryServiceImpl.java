@@ -1,7 +1,7 @@
 package com.atguigu.spzx.service.impl;
 
-
 import com.alibaba.excel.EasyExcel;
+import com.atguigu.spzx.listener.ExcelListener;
 import com.atguigu.spzx.mapper.CategoryMapper;
 import com.atguigu.spzx.model.entity.product.Category;
 import com.atguigu.spzx.model.vo.product.CategoryExcelVo;
@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -22,10 +23,10 @@ import java.util.List;
  * </p>
  *
  * @author atguigu
- * @since 2023-10-16
+ * @since 2023-10-14
  */
 @Service
-public class CategoryServiceImpl  implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -39,7 +40,7 @@ public class CategoryServiceImpl  implements CategoryService {
         list.forEach(category -> {
             //根据parent_id查询分类的数量
             int count = categoryMapper.countByParentId(category.getId());
-            if(count > 0){
+            if (count > 0) {
                 //有下一级分类
                 category.setHasChildren(true);
             }
@@ -49,7 +50,7 @@ public class CategoryServiceImpl  implements CategoryService {
     }
 
     @Override
-    public void exportExcel(HttpServletResponse response) throws IOException{
+    public void exportExcel(HttpServletResponse response) throws IOException {
         //1.查询所有的分类数据
         List<Category> list = categoryMapper.selectAll();
 
@@ -76,5 +77,24 @@ public class CategoryServiceImpl  implements CategoryService {
         response.setHeader("Content-disposition", "attachment;filename*=" + fileName + ".xlsx");
         EasyExcel.write(response.getOutputStream(), CategoryExcelVo.class).sheet("分类列表").doWrite(voList);
     }
-}
 
+    @Override
+    public void importExcel(MultipartFile file) throws IOException {
+        EasyExcel.read(file.getInputStream(), CategoryExcelVo.class, new ExcelListener(categoryMapper)).sheet().doRead();
+    }
+
+    @Override
+    public List<Long> findParentList(long id) {
+        //查询第二级分类的id
+        Long secondId = categoryMapper.selectParentIdById(id);
+        //查询第一级分类的id
+        Long firstId = categoryMapper.selectParentIdById(secondId);
+
+        //封装到List集合中
+        List<Long> list = new ArrayList<>();
+        list.add(firstId);
+        list.add(secondId);
+        list.add(id);
+        return list;
+    }
+}

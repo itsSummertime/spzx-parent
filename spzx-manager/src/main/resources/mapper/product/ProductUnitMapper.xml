@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.spzx.mapper.ProductUnitMapper">
+
+    <!--查询所有商品单位-->
+    <select id="findAll" resultType="com.atguigu.spzx.model.entity.base.ProductUnit">
+        SELECT * FROM product_unit WHERE is_deleted=0
+    </select>
+</mapper>

@@ -1,6 +1,7 @@
 package com.atguigu.spzx.mapper;
 
 import com.atguigu.spzx.model.entity.product.Category;
+import com.atguigu.spzx.model.vo.product.CategoryExcelVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface CategoryMapper{
     List<Category> selectByParentId(long parentId);
 
     List<Category> selectAll();
+
+    void insertBatch(List<CategoryExcelVo> cachedDataList);
+
+    Long selectParentIdById(long id);
 }

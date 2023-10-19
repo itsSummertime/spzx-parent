@@ -40,6 +40,11 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
+    public List<Brand> findByCategoryId(long categoryId) {
+        return brandMapper.selectByCategoryId(categoryId);
+    }
+
+    @Override
     public void update(Brand brand) {
         brandMapper.update(brand);
     }

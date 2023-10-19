@@ -24,4 +24,6 @@ public interface BrandMapper{
     void update(Brand brand);
 
     void insert(Brand brand);
+
+    List<Brand> selectByCategoryId(long categoryId);
 }

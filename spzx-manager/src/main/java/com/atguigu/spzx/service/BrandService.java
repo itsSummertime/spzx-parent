@@ -25,4 +25,6 @@ public interface BrandService  {
     List<Brand> findAll();
 
     void add(Brand brand);
+
+    List<Brand> findByCategoryId(long categoryId);
 }

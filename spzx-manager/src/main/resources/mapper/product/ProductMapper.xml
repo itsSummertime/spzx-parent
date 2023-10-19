@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.spzx.mapper.ProductMapper">
+    <!--添加商品, 添加后返回自增长的id属性，赋值给了传入的对象-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO product(name,brand_id,category1_id,category2_id,category3_id,
+                            unit_name,slider_urls,spec_value)
+        VALUES(#{name},#{brandId},#{category1Id},#{category2Id},#{category3Id},
+               #{unitName},#{sliderUrls},#{specValue})
+    </insert>
+    <!--修改商品-->
+    <update id="update">
+        UPDATE product SET name=#{name},brand_id=#{brandId},category1_id=#{category1Id},
+                           category2_id=#{category2Id},category3_id=#{category3Id},
+                           unit_name=#{unitName},slider_urls=#{sliderUrls}
+        WHERE id=#{id}
+    </update>
+    <!--逻辑删除-->
+    <update id="delete">
+        UPDATE product SET is_deleted=1 WHERE id=#{id}
+    </update>
+    <!--修改审核状态-->
+    <update id="updateAuditStatus">
+        UPDATE product SET audit_status=#{auditStatus} WHERE id=#{id}
+    </update>
+    <!--修改线上状态-->
+    <update id="updateStatus">
+        UPDATE product SET status=#{status} WHERE id=#{id}
+    </update>
+    <!--分页查询-->
+    <select id="selectByPage" resultType="com.atguigu.spzx.model.entity.product.Product">
+        SELECT
+        p.*,
+        b.name AS brandName,
+        c1.name AS category1Name,
+        c2.name AS category2Name,
+        c3.name AS category3Name
+        FROM
+        product p
+        LEFT JOIN brand b ON p.brand_id = b.id
+        LEFT JOIN category c1 ON p.category1_id = c1.id
+        LEFT JOIN category c2 ON p.category2_id = c2.id
+        LEFT JOIN category c3 ON p.category3_id = c3.id
+        <where>
+            <if test="brandId!=null">
+                AND p.brand_id = #{brandId}
+            </if>
+            <if test="category1Id!=null">
+                AND p.category1_id = #{category1Id}
+            </if>
+            <if test="category2Id!=null">
+                AND p.category2_id = #{category2Id}
+            </if>
+            <if test="category3Id!=null">
+                AND p.category3_id = #{category3Id}
+            </if>
+            AND p.is_deleted =0
+        </where>
+        ORDER BY p.id DESC
+    </select>
+    <!--根据id查询-->
+    <select id="selectById" resultType="com.atguigu.spzx.model.entity.product.Product">
+        SELECT
+            p.*,
+            b.NAME AS brandName,
+            c1.NAME AS category1Name,
+            c2.NAME AS category2Name,
+            c3.NAME AS category3Name
+        FROM
+            product p
+                LEFT JOIN brand b ON p.brand_id = b.id
+                LEFT JOIN category c1 ON p.category1_id = c1.id
+                LEFT JOIN category c2 ON p.category2_id = c2.id
+                LEFT JOIN category c3 ON p.category3_id = c3.id
+        WHERE p.id = #{id} AND p.is_deleted=0
+    </select>
+</mapper>
