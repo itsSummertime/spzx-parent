@@ -1,5 +1,6 @@
 package com.atguigu.spzx.service.impl;
 
+import com.atguigu.spzx.common.annotation.Log;
 import com.atguigu.spzx.mapper.SysRoleMapper;
 import com.atguigu.spzx.mapper.SysUserRoleMapper;
 import com.atguigu.spzx.model.dto.system.SysRoleDto;
@@ -40,6 +41,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         return new PageInfo<>(list);
     }
 
+    @Log(title = "角色管理:添加")
     @Override
     public void add(SysRole sysRole) {
         sysRoleMapper.insert(sysRole);
