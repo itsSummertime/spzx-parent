@@ -17,4 +17,6 @@ import java.util.List;
 public interface CategoryMapper  {
 
     List<Category> findFistCategory();
+
+    List<Category> selectAll();
 }

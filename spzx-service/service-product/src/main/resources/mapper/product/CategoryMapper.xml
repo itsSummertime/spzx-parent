@@ -5,4 +5,7 @@
     <select id="findFistCategory" resultType="com.atguigu.spzx.model.entity.product.Category">
         SELECT * FROM category WHERE is_deleted=0 AND status=1 ORDER BY order_num
     </select>
+    <select id="selectAll" resultType="com.atguigu.spzx.model.entity.product.Category">
+        SELECT * FROM category WHERE status=1 AND is_deleted=0 ORDER BY order_num
+    </select>
 </mapper>

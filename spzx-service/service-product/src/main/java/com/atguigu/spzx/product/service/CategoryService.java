@@ -15,4 +15,6 @@ import java.util.List;
 public interface CategoryService{
 
     List<Category> findFistCategory();
+
+    List<Category> findCategoryTree();
 }
