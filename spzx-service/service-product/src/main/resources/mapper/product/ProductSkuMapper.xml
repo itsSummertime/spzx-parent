@@ -12,4 +12,39 @@
           AND ps.is_deleted = 0
         ORDER BY ps.sale_num DESC LIMIT 20
     </select>
+    <!--分页查询-->
+    <select id="selectByPage" resultType="com.atguigu.spzx.model.entity.product.ProductSku">
+        SELECT ps.* FROM product_sku ps
+        LEFT JOIN product p ON ps.product_id = p.id
+        <where>
+            AND p.audit_status = 1
+            AND p.status = 1
+            AND p.is_deleted = 0
+            AND ps.is_deleted = 0
+            <if test="keyword!=null and keyword!=''">
+                AND ps.sku_name LIKE CONCAT('%', #{keyword} ,'%')
+            </if>
+            <if test="brandId!=null">
+                AND p.brand_id = #{brandId}
+            </if>
+            <if test="category1Id!=null">
+                AND p.category1_id = #{category1Id}
+            </if>
+            <if test="category2Id!=null">
+                AND p.category2_id = #{category2Id}
+            </if>
+            <if test="category3Id!=null">
+                AND p.category3_id = #{category3Id}
+            </if>
+        </where>
+        <if test="order==1">
+            ORDER BY ps.sale_num DESC
+        </if>
+        <if test="order==2">
+            ORDER BY ps.sale_price ASC
+        </if>
+        <if test="order==3">
+            ORDER BY ps.sale_price DESC
+        </if>
+    </select>
 </mapper>

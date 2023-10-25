@@ -1,0 +1,23 @@
+server:
+  port: 8500 #端口号
+
+spring:
+  application:
+    name: spzx-server-gateway #服务名
+  cloud:
+    nacos:
+      discovery: #nacos注册中心的地址
+        server-addr: localhost:8848
+    gateway:
+      globalcors: #网关的跨域处理
+        cors-configurations:
+          "[/**]": #对所有的请求路径生效
+            allowed-origin-patterns: "*" #允许所有来源
+            allowed-headers: "*" #允许所有请求头
+            allowed-methods: "*" #允许所有请求方式
+            maxAge: 3600 #默认值1800秒，预检请求的缓存时间，缓存时间内不会再发送预检请求
+      routes: #路由，可以有多个
+        - id: service-product
+          uri: lb://service-product #商品微服务
+          predicates:
+            - Path=/*/product/**

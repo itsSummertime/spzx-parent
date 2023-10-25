@@ -1,9 +1,9 @@
 package com.atguigu.spzx.product.controller;
 
 
-import com.atguigu.spzx.model.entity.product.Category;
+import com.atguigu.spzx.model.entity.product.Brand;
 import com.atguigu.spzx.model.vo.common.Result;
-import com.atguigu.spzx.product.service.CategoryService;
+import com.atguigu.spzx.product.service.BrandService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +15,24 @@ import java.util.List;
 
 /**
  * <p>
- * 商品分类 前端控制器
+ * 分类品牌 前端控制器
  * </p>
  *
  * @author atguigu
  * @since 2023-10-24
  */
-
-@Tag(name = "分类接口")
+@Tag(name = "品牌接口")
 @RestController
-@RequestMapping("/api/product/category")
-public class CategoryController {
-    @Autowired
-    private CategoryService categoryService;
+@RequestMapping("/api/product/brand")
+public class BrandController {
 
-    @Operation(summary = "获取分类树形数据")
-    @GetMapping("/findCategoryTree")
-    public Result<List<Category>> findCategoryTree(){
-        List<Category> list = categoryService.findCategoryTree();
+    @Autowired
+    private BrandService brandService;
+
+    @Operation(summary = "获取全部品牌")
+    @GetMapping("/findAll")
+    public Result<List<Brand>> findAll(){
+        List<Brand> list = brandService.findAll();
         return Result.ok(list);
     }
 }
-

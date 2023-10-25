@@ -22,7 +22,7 @@ public class ProductSkuDto {
     @Schema(description = "三级分类id")
     private Long category3Id;
 
-    @Schema(description = "排序（综合排序:1 价格升序:2 价格降序:3）")
+    @Schema(description = "排序（销量降序:1 价格升序:2 价格降序:3）")
     private Integer order = 1;
 
 }
