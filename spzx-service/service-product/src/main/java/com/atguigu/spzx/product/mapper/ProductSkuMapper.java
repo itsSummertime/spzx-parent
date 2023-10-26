@@ -20,4 +20,8 @@ public interface ProductSkuMapper {
     List<ProductSku> findHotProduct();
 
     List<ProductSku> selectByPage(ProductSkuDto productSkuDto);
+
+    ProductSku selectByID(long skuId);
+
+    List<ProductSku> selectByProductId(Long productId);
 }

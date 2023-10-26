@@ -47,4 +47,12 @@
             ORDER BY ps.sale_price DESC
         </if>
     </select>
+    <!--根据id查询商品sku信息-->
+    <select id="selectByID" resultType="com.atguigu.spzx.model.entity.product.ProductSku">
+        SELECT * FROM product_sku WHERE id=#{skuId} AND is_deleted=0
+    </select>
+    <!--根据product_id查询商品sku-->
+    <select id="selectByProductId" resultType="com.atguigu.spzx.model.entity.product.ProductSku">
+        SELECT * FROM product_sku WHERE product_id=#{productId} AND is_deleted=0
+    </select>
 </mapper>
