@@ -13,18 +13,18 @@ public class Generator {
                 .globalConfig(builder -> {
                     builder.author("atguigu") // 设置作者
                             .fileOverride() // 覆盖已生成文件
-                            .outputDir("D:\\javacode\\spzx-parent\\spzx-service\\service-product\\src\\main\\java") // 指定输出目录，一般指定到java目录
+                            .outputDir("D:\\javacode\\spzx-parent\\spzx-service\\service-user\\src\\main\\java") // 指定输出目录，一般指定到java目录
                             .disableOpenDir(); //禁止打开输出目录
                 })
                 //包配置(PackageConfig)
                 .packageConfig(builder -> {
                     builder.parent("com.atguigu.spzx.product") // 设置父包名
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml,
-                                    "D:\\javacode\\spzx-parent\\spzx-service\\service-product\\src\\main\\resources\\mapper\\product")); // 设置mapperXml生成路径
+                                    "D:\\javacode\\spzx-parent\\spzx-service\\service-user\\src\\main\\resources\\mapper\\user")); // 设置mapperXml生成路径
                 })
                 //策略配置(StrategyConfig)
                 .strategyConfig(builder -> {
-                    builder.addInclude("brand"); // 设置表名,会根据该表生成代码
+                    builder.addInclude("user_info"); // 设置表名,会根据该表生成代码
                     builder.entityBuilder()
                             .enableLombok() //开启 lombok 模型
                             .enableTableFieldAnnotation(); //生成字段注解

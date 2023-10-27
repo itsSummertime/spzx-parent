@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: spzx-server-gateway #服务名
+  data:
+    redis:
+      host: localhost
+      port: 6379
   cloud:
     nacos:
       discovery: #nacos注册中心的地址
@@ -21,3 +25,7 @@ spring:
           uri: lb://service-product #商品微服务
           predicates:
             - Path=/*/product/**
+        - id: service-user
+          uri: lb://service-user #用户微服务
+          predicates:
+            - Path=/*/user/**

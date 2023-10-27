@@ -18,7 +18,7 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public void sendCode(String phone) throws Exception {
         //如果Redis中的验证码还在,则不发短信
-        Boolean hasKey = redisTemplate.hasKey("user:code"+phone);
+        Boolean hasKey = redisTemplate.hasKey("user:code:"+phone);
         if (hasKey) {
             return;
         }
