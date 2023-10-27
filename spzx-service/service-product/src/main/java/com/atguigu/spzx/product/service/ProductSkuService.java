@@ -22,4 +22,6 @@ public interface ProductSkuService{
     PageInfo<ProductSku> findByPage(int page, int limit, ProductSkuDto productSkuDto);
 
     ProductItemVo item(long skuId);
+
+    ProductSku findById(long skuId);
 }

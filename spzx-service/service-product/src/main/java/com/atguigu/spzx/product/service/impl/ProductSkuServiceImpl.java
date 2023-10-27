@@ -91,4 +91,9 @@ public class ProductSkuServiceImpl implements ProductSkuService {
         vo.setSkuSpecValueMap(skuSpecValueMap);
         return vo;
     }
+
+    @Override
+    public ProductSku findById(long skuId) {
+        return productSkuMapper.selectByID(skuId);
+    }
 }

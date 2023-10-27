@@ -27,10 +27,10 @@ public class CartInfo extends BaseEntity {
    @Schema(description = "图片文件")
    private String imgUrl;
 
-   @Schema(description = "sku名称 (冗余)")
+   @Schema(description = "sku名称")
    private String skuName;
 
-   @Schema(description = "isChecked")
+   @Schema(description = "选择状态 0-未选中,1-已选中")
    private Integer isChecked;
     
 }

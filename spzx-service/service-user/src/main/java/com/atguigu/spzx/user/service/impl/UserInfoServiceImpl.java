@@ -9,7 +9,7 @@ import com.atguigu.spzx.model.dto.h5.UserRegisterDto;
 import com.atguigu.spzx.model.entity.user.UserInfo;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.UserInfoVo;
-import com.atguigu.spzx.user.mapper.UserInfoMapper;
+import com.atguigu.spzx.user.controller.mapper.UserInfoMapper;
 import com.atguigu.spzx.user.service.UserInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

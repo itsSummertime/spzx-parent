@@ -29,3 +29,7 @@ spring:
           uri: lb://service-user #用户微服务
           predicates:
             - Path=/*/user/**
+        - id: service-cart
+          uri: lb://service-cart #购物车微服务
+          predicates:
+            - Path=/*/order/cart/**

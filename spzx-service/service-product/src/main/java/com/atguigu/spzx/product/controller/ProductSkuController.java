@@ -42,5 +42,12 @@ public class ProductSkuController {
         ProductItemVo productItemVo = productSkuService.item(skuId);
         return Result.ok(productItemVo);
     }
+
+    @Operation(summary = "查询商品sku信息(OpenFeign)")
+    @GetMapping("/findById/{skuId}")
+    public ProductSku findById(@PathVariable long skuId) {
+       return productSkuService.findById(skuId);
+    }
+
 }
 
