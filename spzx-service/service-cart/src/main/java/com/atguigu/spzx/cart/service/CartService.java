@@ -14,4 +14,8 @@ public interface CartService {
     void checkCart(long skuId, int isChecked);
 
     void allCheckCart(int isChecked);
+
+    void clearCart();
+
+    List<CartInfo> getChecked();
 }

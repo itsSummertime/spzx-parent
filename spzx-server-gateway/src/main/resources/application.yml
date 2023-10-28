@@ -33,3 +33,7 @@ spring:
           uri: lb://service-cart #购物车微服务
           predicates:
             - Path=/*/order/cart/**
+        - id: service-order
+          uri: lb://service-order #订单微服务
+          predicates:
+            - Path=/*/order/orderInfo/**

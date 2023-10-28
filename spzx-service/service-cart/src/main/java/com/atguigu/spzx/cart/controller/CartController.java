@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class CartController{
     }
 
     @Operation(summary = "删除购物车商品")
-    @GetMapping("/auth/deleteCart/{skuId}")
+    @DeleteMapping ("/auth/deleteCart/{skuId}")
     public Result<T> deleteCart(@PathVariable Long skuId) {
         cartService.deleteCart(skuId);
         return Result.ok();
@@ -54,5 +51,17 @@ public class CartController{
     public Result<T> allCheckCart(@PathVariable int isChecked) {
         cartService.allCheckCart(isChecked);
         return Result.ok();
+    }
+    @Operation(summary = "清空购物车")
+    @GetMapping("/auth/clearCart")
+    public Result<T> clearCart() {
+        cartService.clearCart();
+        return Result.ok();
+    }
+
+    @Operation(summary = "查询购物车已选的商品(OpenFeign)")
+    @GetMapping("/auth/getChecked")
+    public List<CartInfo> getChecked() {
+        return cartService.getChecked();
     }
 }
