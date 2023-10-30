@@ -1,10 +1,10 @@
-package com.atguigu.spzx.product.service.impl;
+package com.atguigu.spzx.user.service.impl;
 
 
 import com.atguigu.spzx.common.AuthContextUtil;
 import com.atguigu.spzx.model.entity.user.UserAddress;
-import com.atguigu.spzx.product.mapper.UserAddressMapper;
-import com.atguigu.spzx.product.service.UserAddressService;
+import com.atguigu.spzx.user.mapper.UserAddressMapper;
+import com.atguigu.spzx.user.service.UserAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +28,10 @@ public class UserAddressServiceImpl implements UserAddressService {
         Long userId = AuthContextUtil.getUserInfo().getId();
 
         return  userAddressMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public UserAddress findById(long id) {
+        return userAddressMapper.selectById(id);
     }
 }

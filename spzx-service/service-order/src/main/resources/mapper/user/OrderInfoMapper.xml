@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.spzx.order.mapper.OrderInfoMapper">
 
+    <!--添加订单信息-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO order_info (user_id, nick_name, order_no, total_amount, original_total_amount,
+                                feight_fee, pay_type, receiver_name, receiver_phone, receiver_tag_name,
+                                receiver_province, receiver_city, receiver_district, receiver_address, remark)
+        VALUES (#{userId}, #{nickName}, #{orderNo}, #{totalAmount}, #{originalTotalAmount}, #{feightFee},
+                #{payType}, #{receiverName}, #{receiverPhone}, #{receiverTagName}, #{receiverProvince},
+                #{receiverCity}, #{receiverDistrict}, #{receiverAddress}, #{remark})
+    </insert>
 </mapper>

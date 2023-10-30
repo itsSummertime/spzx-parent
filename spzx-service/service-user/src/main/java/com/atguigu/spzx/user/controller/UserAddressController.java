@@ -1,13 +1,14 @@
-package com.atguigu.spzx.product.controller;
+package com.atguigu.spzx.user.controller;
 
 
 import com.atguigu.spzx.model.entity.user.UserAddress;
 import com.atguigu.spzx.model.vo.common.Result;
-import com.atguigu.spzx.product.service.UserAddressService;
+import com.atguigu.spzx.user.service.UserAddressService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +35,12 @@ public class UserAddressController {
     public Result<List<UserAddress>> findUserAddressList(){
         List<UserAddress> list = userAddressService.findUserAddressList();
         return Result.ok(list);
+    }
+
+    @Operation(summary = "获取用户地址（OpenFeign）")
+    @GetMapping("auth/findById/{id}")
+    public UserAddress findById(@PathVariable long id){
+        return userAddressService.findById(id);
     }
 }
 

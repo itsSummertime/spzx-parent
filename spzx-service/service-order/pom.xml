@@ -30,7 +30,20 @@
             <artifactId>service-cart-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-    </dependencies>
 
+        <!--商品服务的远程调用模块-->
+        <dependency>
+            <groupId>com.atguigu</groupId>
+            <artifactId>service-product-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!--用户服务的远程调用模块-->
+        <dependency>
+            <groupId>com.atguigu</groupId>
+            <artifactId>service-user-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

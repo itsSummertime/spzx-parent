@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.atguigu.spzx.product.mapper.UserAddressMapper">
+<mapper namespace="com.atguigu.spzx.user.mapper.UserAddressMapper">
     <!--根据user_id查询用户地址列表-->
     <select id="selectByUserId" resultType="com.atguigu.spzx.model.entity.user.UserAddress">
         SELECT * FROM user_address WHERE user_id=#{userId} AND is_deleted=0
+    </select>
+    <select id="selectById" resultType="com.atguigu.spzx.model.entity.user.UserAddress">
+        SELECT * FROM user_address WHERE id=#{id} AND is_deleted=0
     </select>
 </mapper>

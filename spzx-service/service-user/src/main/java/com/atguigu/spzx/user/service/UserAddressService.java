@@ -1,4 +1,4 @@
-package com.atguigu.spzx.product.service;
+package com.atguigu.spzx.user.service;
 
 import com.atguigu.spzx.model.entity.user.UserAddress;
 
@@ -15,4 +15,6 @@ import java.util.List;
 public interface UserAddressService {
 
     List<UserAddress> findUserAddressList();
+
+    UserAddress findById(long id);
 }

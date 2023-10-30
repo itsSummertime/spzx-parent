@@ -1,9 +1,20 @@
 package com.atguigu.spzx.order.service.impl;
 
+import com.atguigu.spzx.common.AuthContextUtil;
+import com.atguigu.spzx.common.exception.GuiguException;
 import com.atguigu.spzx.feign.cart.CartFeignClient;
+import com.atguigu.spzx.feign.product.ProductFeignClient;
+import com.atguigu.spzx.feign.user.UserFeignClient;
+import com.atguigu.spzx.model.dto.h5.OrderInfoDto;
 import com.atguigu.spzx.model.entity.h5.CartInfo;
+import com.atguigu.spzx.model.entity.order.OrderInfo;
 import com.atguigu.spzx.model.entity.order.OrderItem;
+import com.atguigu.spzx.model.entity.product.ProductSku;
+import com.atguigu.spzx.model.entity.user.UserAddress;
+import com.atguigu.spzx.model.entity.user.UserInfo;
+import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.TradeVo;
+import com.atguigu.spzx.order.mapper.OrderInfoMapper;
 import com.atguigu.spzx.order.service.OrderInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +34,13 @@ import java.util.List;
  */
 @Service
 public class OrderInfoServiceImpl implements OrderInfoService {
+
+    @Autowired
+    OrderInfoMapper orderInfoMapper;
+    @Autowired
+    private ProductFeignClient productFeignClient;
+    @Autowired
+    private UserFeignClient userFeignClient;
     @Autowired
     private CartFeignClient cartFeignClient;
     @Override
@@ -59,6 +77,69 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         TradeVo tradeVo = new TradeVo();
         tradeVo.setOrderItemList(orderItemList);
         tradeVo.setTotalAmount(totalAmount);
-        return null;
+        return tradeVo;
+    }
+
+    @Override
+    public long submitOrder(OrderInfoDto orderInfoDto) {
+        //获取前端提交的参数
+        Long userAddressId = orderInfoDto.getUserAddressId(); //送货地址id
+        BigDecimal feightFee = orderInfoDto.getFeightFee(); //运费
+        String remark = orderInfoDto.getRemark(); //备注
+        List<OrderItem> orderItemList = orderInfoDto.getOrderItemList(); //订单明细(商品列表)
+
+        //订单总额
+        BigDecimal totalAmount = new BigDecimal(0);
+
+        //遍历商品列表
+       for (OrderItem orderItem : orderItemList){
+           //OpenFeign远程调用商品服务，获取商品sku信息
+           ProductSku productSku = productFeignClient.findById(orderItem.getSkuId());
+
+
+           //判断库存不够的情况：要买的数量 > 库存数量
+           if (orderItem.getSkuNum() > productSku.getStockNum()) {
+               throw new GuiguException(ResultCodeEnum.STOCK_LESS);
+           }
+
+           //计算当前商品的价格： 单价*数量
+           BigDecimal multiply = orderItem.getSkuPrice().multiply(new BigDecimal(orderItem.getSkuNum()));
+           //累加到订单总额
+           totalAmount = totalAmount.add(multiply);
+       }
+
+        //OpenFeign远程调用用户服务，获取地址信息
+        UserAddress userAddress = userFeignClient.findById(userAddressId);
+        //从线程变量中获取当前用户信息
+        UserInfo userInfo = AuthContextUtil.getUserInfo();
+
+        //提取订单数据
+        OrderInfo orderInfo = new OrderInfo();
+        //当前用户信息>>>
+        orderInfo.setUserId(userInfo.getId());
+        orderInfo.setNickName(userInfo.getNickName());
+        //收货信息>>>
+        orderInfo.setReceiverName(userAddress.getName());
+        orderInfo.setReceiverPhone(userAddress.getPhone());
+        orderInfo.setReceiverTagName(userAddress.getTagName());
+        orderInfo.setReceiverProvince(userAddress.getProvinceCode());
+        orderInfo.setReceiverCity(userAddress.getCityCode());
+        orderInfo.setReceiverDistrict(userAddress.getDistrictCode());
+        orderInfo.setReceiverAddress(userAddress.getAddress());
+        //订单信息>>>
+        orderInfo.setOrderNo(String.valueOf(System.currentTimeMillis()));
+        orderInfo.setTotalAmount(totalAmount);
+        orderInfo.setOriginalTotalAmount(totalAmount);
+        orderInfo.setFeightFee(feightFee);
+        orderInfo.setPayType(2);
+        orderInfo.setRemark(remark);
+
+        //添加到数据库
+        orderInfoMapper.insert(orderInfo);
+
+        //获取数据库生产的订单id
+        Long orderInfoId = orderInfo.getId();
+
+        return orderInfoId;
     }
 }
