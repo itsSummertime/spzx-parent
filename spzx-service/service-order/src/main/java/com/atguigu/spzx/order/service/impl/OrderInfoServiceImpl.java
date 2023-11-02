@@ -9,6 +9,7 @@ import com.atguigu.spzx.model.dto.h5.OrderInfoDto;
 import com.atguigu.spzx.model.entity.h5.CartInfo;
 import com.atguigu.spzx.model.entity.order.OrderInfo;
 import com.atguigu.spzx.model.entity.order.OrderItem;
+import com.atguigu.spzx.model.entity.order.OrderLog;
 import com.atguigu.spzx.model.entity.product.ProductSku;
 import com.atguigu.spzx.model.entity.user.UserAddress;
 import com.atguigu.spzx.model.entity.user.UserInfo;
@@ -16,6 +17,7 @@ import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.TradeVo;
 import com.atguigu.spzx.order.mapper.OrderInfoMapper;
 import com.atguigu.spzx.order.mapper.OrderItemMapper;
+import com.atguigu.spzx.order.mapper.OrderLogMapper;
 import com.atguigu.spzx.order.service.OrderInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     private CartFeignClient cartFeignClient;
     @Autowired
     private OrderItemMapper orderItemMapper;
+
+    @Autowired
+    private OrderLogMapper orderLogMapper;
     @Override
     public TradeVo trade() {
         //OpenFeign远程调用购物车服务，获取已选的商品列表
@@ -152,6 +157,15 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         //批量添加到数据库
         orderItemMapper.insertBatch(orderItemList);
+        //3.保存订单日志 > order_log表  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //订单日志信息
+        OrderLog orderLog = new OrderLog();
+        orderLog.setOrderId((orderInfoId));
+        orderLog.setOperateUser("用户");
+        orderLog.setProcessStatus(0); //未付款
+        orderLog.setNote("提交订单");
+        //添加到数据库
+        orderLogMapper.insert(orderLog);
 
         return orderInfoId;
     }

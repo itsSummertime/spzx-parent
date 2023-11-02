@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.spzx.order.mapper.OrderLogMapper">
+
+    <!--添加订单日志-->
+    <insert id="insert">
+        INSERT INTO order_log(order_id, operate_user, process_status, note)
+        VALUES(#{orderId},#{operateUser},#{processStatus},#{note})
+    </insert>
+</mapper>
