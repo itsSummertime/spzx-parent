@@ -15,6 +15,7 @@ import com.atguigu.spzx.model.entity.user.UserInfo;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.TradeVo;
 import com.atguigu.spzx.order.mapper.OrderInfoMapper;
+import com.atguigu.spzx.order.mapper.OrderItemMapper;
 import com.atguigu.spzx.order.service.OrderInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     private UserFeignClient userFeignClient;
     @Autowired
     private CartFeignClient cartFeignClient;
+    @Autowired
+    private OrderItemMapper orderItemMapper;
     @Override
     public TradeVo trade() {
         //OpenFeign远程调用购物车服务，获取已选的商品列表
@@ -139,6 +142,16 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         //获取数据库生产的订单id
         Long orderInfoId = orderInfo.getId();
+
+
+        //2.保存订单项 > order_item表  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //遍历商品列表，设置每个商品的订单id
+        orderItemList.forEach(orderItem -> {
+            orderItem.setOrderId(orderInfoId);
+        });
+
+        //批量添加到数据库
+        orderItemMapper.insertBatch(orderItemList);
 
         return orderInfoId;
     }
