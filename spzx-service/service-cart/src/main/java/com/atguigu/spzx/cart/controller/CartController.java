@@ -64,4 +64,10 @@ public class CartController{
     public List<CartInfo> getChecked() {
         return cartService.getChecked();
     }
+
+    @Operation(summary = "删除购物车已选的商品(OpenFeign)")
+    @GetMapping("/auth/deleteChecked")
+    public void deleteChecked() {
+         cartService.deleteChecked();
+    }
 }
